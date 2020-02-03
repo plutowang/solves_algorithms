@@ -69,7 +69,39 @@ def minimumSwaps(arr):
     return swap
 
 
+def arrayManipulation(n, queries):
+    # Array Manipulation
+    # array store how many curr is greater than prv
+    greater_arr = [0 for i in range(n+1)]
+    max_num = 0
+    prv = 0
+    for q in queries:
+        a, b, k = q
+        greater_arr[a] += k
+        if (b + 1 <= n):
+            greater_arr[b+1] -= k
+        print(greater_arr)
+    for n in greater_arr:
+        prv += n
+        max_num = max(prv, max_num)
+
+    return max_num
+
+
 if __name__ == '__main__':
-    print(minimumSwaps([2, 1, 5, 3, 4]))
+    import ast
+    import os
+    with open(os.path.basename(__file__)) as f:
+        TREE = ast.parse(f.read())
+        COUNT = sum(isinstance(exp, ast.FunctionDef) for exp in TREE.body)
+        print('\nThere are {} functions in {}\n{}'.format(
+            COUNT, os.path.basename(__file__), '='*70))
+    n = 5
+    queries = [
+        [1, 2, 100],
+        [2, 5, 100],
+        [3, 4, 100]
+    ]
+    print(arrayManipulation(n, queries))
     # nums = list(range(1, 6))
     # print(nums[0])
